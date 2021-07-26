@@ -7,6 +7,7 @@ package view;
 
 import controller.ClienteController;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import model.ClienteTableModel;
 
@@ -76,8 +77,18 @@ public class Aplicacao extends javax.swing.JFrame {
         });
 
         jButtonBuscaNome.setText("Buscar");
+        jButtonBuscaNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscaNomeActionPerformed(evt);
+            }
+        });
 
         jButtonLimpaFiltro.setText("Limpar");
+        jButtonLimpaFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpaFiltroActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setText("Excluir");
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +98,11 @@ public class Aplicacao extends javax.swing.JFrame {
         });
 
         jButtonAlterar.setText("Alterar");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jTClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -202,8 +218,9 @@ public class Aplicacao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        if(jTextFieldNome.getText().equals("") || jTextFieldSobrenome.getText().equals("") || jTextFieldTelefone.getText().equals("")){
-        
+        if(jTextFieldNome.getText().isBlank() || jTextFieldSobrenome.getText().isBlank() || jTextFieldTelefone.getText().isBlank()){
+             JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios para realizar o cadastro do cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+
         }else{
             cController.insertCliente(jTextFieldNome.getText(), jTextFieldSobrenome.getText(), Long.parseLong(jTextFieldTelefone.getText()));
             this.atualizaJTable();
@@ -220,6 +237,38 @@ public class Aplicacao extends javax.swing.JFrame {
           
         }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+       
+        if(jTClientes.getSelectedRow() != -1){
+        
+           int id = (int) jTClientes.getValueAt(jTClientes.getSelectedRow(), 0);
+           
+           if(jTextFieldNome.getText().isBlank() || jTextFieldSobrenome.getText().isBlank() || jTextFieldTelefone.getText().isBlank()){
+               JOptionPane.showMessageDialog(null, "Todos os campos são obrigatórios para realizar a alteração do cadastro do cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+           }else{
+               cController.alterarCliente(id, jTextFieldNome.getText(), jTextFieldSobrenome.getText(), Long.parseLong(jTextFieldTelefone.getText()));
+           }
+           this.atualizaJTable();
+            
+        }
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButtonBuscaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscaNomeActionPerformed
+        
+        if(jTextFieldBusca.getText().isBlank()){
+             JOptionPane.showMessageDialog(null, "Para realizar uma busca, digite o sobrenome ou telefone desejado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }else{
+            List<Cliente> listaCliente = cController.buscaClientes(jTextFieldBusca.getText());
+            tabelaCliente.setClientes(listaCliente);
+            tabelaCliente.fireTableDataChanged();
+            
+        }
+    }//GEN-LAST:event_jButtonBuscaNomeActionPerformed
+
+    private void jButtonLimpaFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpaFiltroActionPerformed
+        this.atualizaJTable();
+    }//GEN-LAST:event_jButtonLimpaFiltroActionPerformed
     
     private void atualizaJTable(){
         tabelaCliente.setClientes(cController.findAllCliente());

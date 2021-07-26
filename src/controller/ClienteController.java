@@ -39,4 +39,26 @@ public class ClienteController {
         ClienteDao cDao = new ClienteDao();
         cDao.deleteCliente(id);
     }
+    
+    public void alterarCliente(int id, String nome, String sobrenome, Long telefone){
+        Cliente c = new Cliente();
+        ClienteDao cDao = new ClienteDao();
+        
+        c.setId(id);
+        c.setNome(nome);
+        c.setSobrenome(sobrenome);
+        c.setTelefone(telefone);
+        
+        cDao.updateCliente(c);
+        
+    }
+    
+    public List<Cliente> buscaClientes(String busca){
+        List<Cliente> lc = new ArrayList<Cliente>();
+        ClienteDao cDao = new ClienteDao();
+        
+        lc = cDao.buscaCliente(busca);
+        
+        return lc;
+    }
 }
