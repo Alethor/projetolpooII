@@ -34,4 +34,9 @@ public class ClienteController {
         clientes = cDao.findAllCliente();
         return clientes;
     }
+    
+    public void deleteCliente(int id){
+        ClienteDao cDao = new ClienteDao();
+        cDao.deleteCliente(id);
+    }
 }

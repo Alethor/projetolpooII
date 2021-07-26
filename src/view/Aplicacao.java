@@ -21,15 +21,14 @@ public class Aplicacao extends javax.swing.JFrame {
      */
     ClienteController cController = new ClienteController();
     ClienteTableModel tabelaCliente = new ClienteTableModel();
-    List<Cliente> clientes = cController.findAllCliente();
+ 
     
     public Aplicacao() {
         
         initComponents();
         jTClientes.setModel(tabelaCliente);
+        this.atualizaJTable();
         
-        tabelaCliente.setClientes(clientes);
-        tabelaCliente.fireTableDataChanged();
         
     }
 
@@ -81,6 +80,11 @@ public class Aplicacao extends javax.swing.JFrame {
         jButtonLimpaFiltro.setText("Limpar");
 
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jButtonAlterar.setText("Alterar");
 
@@ -202,11 +206,25 @@ public class Aplicacao extends javax.swing.JFrame {
         
         }else{
             cController.insertCliente(jTextFieldNome.getText(), jTextFieldSobrenome.getText(), Long.parseLong(jTextFieldTelefone.getText()));
-            tabelaCliente.setClientes(cController.findAllCliente());
-            tabelaCliente.fireTableDataChanged();
+            this.atualizaJTable();
         }
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        
+        if(jTClientes.getSelectedRow() != -1){
+            
+            int id = (int) jTClientes.getValueAt(jTClientes.getSelectedRow(), 0);
+            cController.deleteCliente(id);
+            this.atualizaJTable();
+          
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+    
+    private void atualizaJTable(){
+        tabelaCliente.setClientes(cController.findAllCliente());
+        tabelaCliente.fireTableDataChanged();
+    }
     /**
      * @param args the command line arguments
      */

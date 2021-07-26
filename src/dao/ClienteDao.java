@@ -55,10 +55,21 @@ public class ClienteDao {
         }catch(SQLException e){
             e.printStackTrace();
         }
-        
-        for(Cliente cc : lc){
-           System.out.println("nome: " + cc.getNome());
-        }
         return lc;
+    }
+    
+    public void deleteCliente(int id){
+       String sql = "DELETE FROM col_cliente WHERE ID = ? ";
+       
+       try{
+          Connection conn = DB.getConnection();
+          PreparedStatement ps = conn.prepareStatement(sql);
+          ps.setInt(1, id);
+          ps.executeUpdate();
+          
+       }catch(SQLException e){
+           e.printStackTrace();
+       }
+       
     }
 }
