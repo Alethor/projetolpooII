@@ -16,14 +16,15 @@ import model.Cliente;
 public class ClienteController {
     
     
-    public void insertCliente(String nome, String sobrenome, Long telefone){
+    public Boolean insertCliente(String nome, String sobrenome, Long telefone){
         Cliente c = new Cliente();
         ClienteDao cDao = new ClienteDao();
         c.setNome(nome);
         c.setSobrenome(sobrenome);
         c.setTelefone(telefone);
         
-        cDao.insertCliente(c);
+       Boolean valor = cDao.insertCliente(c);
+       return valor;
         
     }
     
@@ -60,5 +61,13 @@ public class ClienteController {
         lc = cDao.buscaCliente(busca);
         
         return lc;
+    }
+    
+    public Cliente buscaCliente(String busca){
+        Cliente c = new Cliente();
+        ClienteDao cDao = new ClienteDao();
+        
+        c = cDao.findCliente(busca);
+        return c;
     }
 }

@@ -9,6 +9,47 @@ package model;
  *
  * @author Alethor
  */
-public class Quadrado {
+public class Quadrado extends Forma{
     
+     private double base;
+     private double h;
+   
+    
+
+    public Quadrado() {
+    }
+
+
+    public double getBase() {
+        return base;
+    }
+
+    public void setBase(double base) {
+        this.base = base;
+    }
+
+    public double getH() {
+        return h;
+    }
+
+    public void setH(double h) {
+        this.h = h;
+    }
+   
+    
+    
+    public void calculaAreaRetangulo(double base, double h){
+        this.setBase(base);
+        this.setH(h);
+        this.setArea(base * h);
+        this.setTipo("Quadrado");
+    
+    }
+    
+    public void calculaBaseAltura(double area){
+        this.setBase(Math.sqrt(area));
+        this.setH(Math.sqrt(area));
+        this.setTipo("Quadrado");
+       
+    }
 }

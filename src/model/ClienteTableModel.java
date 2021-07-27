@@ -54,6 +54,7 @@ public class ClienteTableModel extends AbstractTableModel{
         switch(coluna){
             case 0:
                 clientes.get(linha).setNome((String) valor);
+                break;
             case 1:
                clientes.get(linha).setSobrenome((String) valor);
                break;

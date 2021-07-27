@@ -4,7 +4,8 @@ package model;
 
 public class Forma {
     
-    private double area;
+    protected double area;
+    protected String tipo;
 
     public double getArea() {
         return area;
@@ -13,9 +14,16 @@ public class Forma {
     public void setArea(double area) {
         this.area = area;
     }
-    
-    public void calculaArea(){
+
+    public String getTipo() {
+        return tipo;
     }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    
     
     
 }

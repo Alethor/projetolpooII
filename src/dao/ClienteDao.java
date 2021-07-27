@@ -21,7 +21,7 @@ import java.sql.SQLException;
 public class ClienteDao {
     
     
-    public void insertCliente(Cliente c){
+    public boolean insertCliente(Cliente c){
        String sql = "INSERT INTO col_cliente (NOME, SOBRENOME, TELEFONE) VALUES (?, ?, ?)";
        
        try{
@@ -33,7 +33,9 @@ public class ClienteDao {
          ps.executeUpdate();
        }catch(SQLException e){
            e.printStackTrace();
+           return false;
        }
+       return true;
     }
     
     public List<Cliente> findAllCliente(){
@@ -113,5 +115,27 @@ public class ClienteDao {
             e.printStackTrace();
         }
         return lc;
+    }
+    
+    public Cliente findCliente(String busca){
+        Cliente c = new Cliente();
+        String sql = "SELECT * FROM col_cliente WHERE TELEFONE = ?";
+        
+         try{
+          Connection conn = DB.getConnection();
+          PreparedStatement ps = conn.prepareStatement(sql);
+          ps.setString(1, busca);
+          ResultSet rs = ps.executeQuery();
+          
+          while(rs.next()){
+              c.setId(rs.getInt("ID"));
+              c.setNome(rs.getString("NOME"));
+              c.setSobrenome(rs.getString("SOBRENOME"));
+              c.setTelefone(rs.getLong("TELEFONE"));
+          }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+         return c;
     }
 }
