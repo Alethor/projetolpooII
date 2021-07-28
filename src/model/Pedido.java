@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Pedido {
     private int idPedido;
-    private int idCliente;
+    private Cliente cliente;
     private int idStatus;
     private List<Pizza> pizzas;
     private double totalPedido;
@@ -26,13 +26,15 @@ public class Pedido {
         this.idPedido = idPedido;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
+
+    
 
     public int getIdStatus() {
         return idStatus;
@@ -59,10 +61,13 @@ public class Pedido {
     }
     
     public void atualizaTotalPedido(){
-        for(Pizza p :this.pizzas){
+        Double total = 0.0;
+        
+        for(Pizza p : this.pizzas){
             this.setTotalPedido(0);
-            this.setTotalPedido(totalPedido + p.getValor());
+            total+= p.getValor();
         }
+        this.setTotalPedido(total);
     }
     
 }

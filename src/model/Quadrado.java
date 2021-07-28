@@ -47,6 +47,7 @@ public class Quadrado extends Forma{
     }
     
     public void calculaBaseAltura(double area){
+        this.setArea(area);
         this.setBase(Math.sqrt(area));
         this.setH(Math.sqrt(area));
         this.setTipo("Quadrado");

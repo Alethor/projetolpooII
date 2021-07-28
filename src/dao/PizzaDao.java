@@ -12,6 +12,7 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import model.Forma;
 import model.Pizza;
 import model.Sabor;
 
@@ -91,9 +92,44 @@ public class PizzaDao {
         return valor;
                 
     }
+    public void insertPizzaPedido(int idPedido, Pizza p){
+        String sql = "INSERT INTO col_pizza_pedido(IDPEDIDO, AREA, VALOR, FORMA, SABOR1, SABOR2) VALUES (?,?,?,?,?,?)";
+        
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            ps.setDouble(2, p.getForma().getArea());
+            ps.setDouble(3, p.getValor());
+            ps.setString(4, p.getForma().getTipo());
+            ps.setInt(5, p.getSabor1().getId());
+            ps.setInt(6, p.getSabor2().getId());
+            ps.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     
+    public void updatePizzaPedido(Pizza p){
+        String sql = "UPDATE col_pizza_pedido SET AREA = ?, VALOR = ?, FORMA = ?, SABOR1 = ?, SABOR2 = ? WHERE ID = ?";
+        
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setDouble(1, p.getForma().getArea());
+            ps.setDouble(2, p.getValor());
+            ps.setString(3, p.getForma().getTipo());
+            ps.setInt(4, p.getSabor1().getId());
+            ps.setInt(5, p.getSabor2().getId());
+            ps.setInt(6, p.getId());
+            ps.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     public List<Pizza> findPizzasPedido(int idPedido){
         List<Pizza> pizzas = new ArrayList<Pizza>();
+        
         
         String sql = "SELECT * FROM col_pizza_pedido WHERE IDPEDIDO = ?";
         
@@ -105,11 +141,18 @@ public class PizzaDao {
             
             while(rs.next()){
                 Pizza p = new Pizza();
-                p.getForma().setTipo(rs.getString("FORMA"));
-                p.getForma().setArea(rs.getDouble("AREA"));
+                Forma f = new Forma();
+                Sabor s1 = new Sabor();
+                Sabor s2 = new Sabor();
+                p.setId(rs.getInt("ID"));
+                f.setTipo(rs.getString("FORMA"));
+                f.setArea(rs.getDouble("AREA"));
                 p.setValor(rs.getDouble("VALOR"));
-                p.getSabor1().setId(rs.getInt("SABOR1"));
-                p.getSabor2().setId(rs.getInt("SABOR2"));
+                s1.setId(rs.getInt("SABOR1"));
+                s2.setId(rs.getInt("SABOR2"));
+                p.setForma(f);
+                p.setSabor1(s1);
+                p.setSabor2(s2);
                 pizzas.add(p);
             }
         }catch(SQLException e){
@@ -140,6 +183,34 @@ public class PizzaDao {
         }
         return s;
         
+        
+    }
+    
+    public void deleteAllPizzaPedido(int idPedido){
+        String sql = "DELETE FROM col_pizza_pedido WHERE IDPEDIDO = ?";
+        
+         try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            ps.executeUpdate();
+         }catch(SQLException e){
+             e.printStackTrace();
+         }
+        
+    }
+    
+    public void deletePizzaPedido(int idPizza){
+        String sql = "DELETE FROM col_pizza_pedido WHERE ID = ?";
+        
+         try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setInt(1, idPizza);
+            ps.executeUpdate();
+         }catch(SQLException e){
+             e.printStackTrace();
+         }
         
     }
 }

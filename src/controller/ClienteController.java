@@ -5,9 +5,12 @@
  */
 package controller;
 import dao.ClienteDao;
+import dao.PedidoDao;
+import dao.PizzaDao;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cliente;
+import model.Pedido;
 
 /**
  *
@@ -38,6 +41,13 @@ public class ClienteController {
     
     public void deleteCliente(int id){
         ClienteDao cDao = new ClienteDao();
+        PedidoDao pDao = new PedidoDao();
+        PizzaDao pzDao = new PizzaDao();
+        Cliente c = new Cliente();
+        c.setId(id);
+        Pedido p = pDao.findPedido(c);
+        pzDao.deleteAllPizzaPedido(p.getIdPedido());
+        pDao.deletePedido(id);
         cDao.deleteCliente(id);
     }
     
@@ -70,4 +80,5 @@ public class ClienteController {
         c = cDao.findCliente(busca);
         return c;
     }
+   
 }

@@ -8,6 +8,7 @@ package view;
 import controller.ClienteController;
 import controller.PedidoController;
 import controller.PizzaController;
+
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Cliente;
@@ -114,6 +115,7 @@ public class Aplicacao extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        jButtonAlterarPizza = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -259,7 +261,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jButtonAlterar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(375, Short.MAX_VALUE))
+                .addContainerGap(515, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Clientes", jPanelCliente);
@@ -336,6 +338,11 @@ public class Aplicacao extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTPizzas);
 
         jButtonRemover.setText("Remover");
+        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoverActionPerformed(evt);
+            }
+        });
 
         jTextFieldTotalPedido.setEditable(false);
         jTextFieldTotalPedido.setBackground(new java.awt.Color(204, 204, 204));
@@ -361,6 +368,13 @@ public class Aplicacao extends javax.swing.JFrame {
         jLabel3.setText("Altura:");
 
         jLabel4.setText("Área: ");
+
+        jButtonAlterarPizza.setText("Alterar");
+        jButtonAlterarPizza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarPizzaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -411,7 +425,7 @@ public class Aplicacao extends javax.swing.JFrame {
                                             .addComponent(jTextFieldAltura)
                                             .addComponent(jTextFieldArea)))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jLabel13)
                                                 .addGap(502, 502, 502))
@@ -419,10 +433,12 @@ public class Aplicacao extends javax.swing.JFrame {
                                                 .addComponent(jLabel14)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jTextFieldTotalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(372, 372, 372)))
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButtonRemover)
-                                            .addComponent(jButtonAdicionar))))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButtonAlterarPizza)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                        .addComponent(jButtonRemover)
+                                        .addGap(2, 2, 2))
+                                    .addComponent(jButtonAdicionar))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -487,10 +503,10 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jTextFieldArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonAdicionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -499,9 +515,10 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
                         .addComponent(jTextFieldTotalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonRemover)))
+                        .addComponent(jButtonRemover)
+                        .addComponent(jButtonAlterarPizza)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(319, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Pedidos", jPanel2);
@@ -562,7 +579,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jButtonAlterarStatusPedido))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(333, Short.MAX_VALUE))
+                .addContainerGap(473, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Todos os Pedidos", jPanel1);
@@ -626,7 +643,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(537, Short.MAX_VALUE))
+                .addContainerGap(677, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Categorias", jPanel3);
@@ -768,6 +785,7 @@ public class Aplicacao extends javax.swing.JFrame {
             
             int id = (int) jTClientes.getValueAt(jTClientes.getSelectedRow(), 0);
             cController.deleteCliente(id);
+            this.p = new Pedido();
             this.atualizaJTableCliente();
           
         }
@@ -846,9 +864,12 @@ public class Aplicacao extends javax.swing.JFrame {
             jTextFieldNomeCliente.setText(c.getNome());
             jTextFieldSobrenomeCliente.setText(c.getSobrenome());
             
-            this.p = pdController.findPedido(c.getId());
-            if(p.getIdCliente() == 0){
-                pdController.insertPedido(c.getId());
+            this.p = pdController.findPedido(c);
+            
+           
+            if(p.getIdPedido() == 0){
+                pdController.insertPedido(c);
+                this.p = pdController.findPedido(c);
             }
              this.atualizaJTablePizzas();
            }      
@@ -867,33 +888,112 @@ public class Aplicacao extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxFormaPizzaActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-        Sabor sabor1 = new Sabor();
-        Sabor sabor2 = new Sabor();
-        double area;
-        double base;
-        double altura;
-        String forma = (String) jComboBoxFormaPizza.getSelectedItem();
+        if(p.getIdPedido() == 0){
+            JOptionPane.showMessageDialog(null, "Para adicionar uma pizza a um pedido, primeiro selecione um cliente!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }else{
         
-        sabor1 = (Sabor) jComboBoxSabor1.getSelectedItem();
-        sabor2 = (Sabor) jComboBoxSabor2.getSelectedItem();
-        if(jTextFieldArea.getText().isBlank()){
-            area = 0;
-        }else{
-            area = Double.parseDouble(jTextFieldArea.getText());
+            Sabor sabor1 = new Sabor();
+            Sabor sabor2 = new Sabor();
+            double area;
+            double base;
+            double altura;
+            String forma = (String) jComboBoxFormaPizza.getSelectedItem();
+
+            sabor1 = (Sabor) jComboBoxSabor1.getSelectedItem();
+            sabor2 = (Sabor) jComboBoxSabor2.getSelectedItem();
+            if(jTextFieldArea.getText().isBlank()){
+                area = 0;
+            }else{
+                area = Double.parseDouble(jTextFieldArea.getText());
+            }
+            if(jTextFieldLargura.getText().isBlank()){
+                base = 0;
+            }else{
+                base = Double.parseDouble(jTextFieldLargura.getText());
+            }
+            if(jTextFieldAltura.getText().isBlank()){
+                altura = 0;
+            }else{
+                altura = Double.parseDouble(jTextFieldAltura.getText());
+            }
+
+
+            List<Double> retorno = pdController.insertPizzaPedido(base, altura, area, forma, sabor1, sabor2, p, 1,0);
+
+            if(jTextFieldArea.getText().isBlank()){
+                jTextFieldArea.setText(retorno.get(0).toString());
+            }else{
+                if(forma.equals("Círculo")){
+                    jTextFieldLargura.setText(retorno.get(0).toString());
+                }else{
+                    jTextFieldLargura.setText(retorno.get(0).toString());
+                    jTextFieldAltura.setText(retorno.get(1).toString());
+                }
+            }
+            this.atualizaJTablePizzas();
         }
-        if(jTextFieldLargura.getText().isBlank()){
-            base = 0;
-        }else{
-            base = Double.parseDouble(jTextFieldLargura.getText());
-        }
-        if(jTextFieldAltura.getText().isBlank()){
-            altura = 0;
-        }else{
-            altura = Double.parseDouble(jTextFieldAltura.getText());
-        }
-      
-        pdController.insertPizzaPedido(base, altura, area, forma, sabor1, sabor2, p.getIdPedido());
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
+
+    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
+        if(jTPizzas.getSelectedRow() != -1){
+            
+            int id = (int) jTPizzas.getValueAt(jTPizzas.getSelectedRow(), 0);
+            pController.excluirPizzaPedido(id);
+            pdController.atualizaTotalPedido(p);
+            this.atualizaJTablePizzas();
+          
+        }
+    }//GEN-LAST:event_jButtonRemoverActionPerformed
+
+    private void jButtonAlterarPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarPizzaActionPerformed
+         if(p.getIdPedido() == 0){
+            JOptionPane.showMessageDialog(null, "Para alterar uma pizza de um pedido, primeiro selecione um cliente e depois a pizza!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }else{
+        
+             int idPizza = 0;
+             if(jTPizzas.getSelectedRow() != -1){
+                 idPizza = (int) jTPizzas.getValueAt(jTPizzas.getSelectedRow(), 0);
+             }
+            Sabor sabor1 = new Sabor();
+            Sabor sabor2 = new Sabor();
+            double area;
+            double base;
+            double altura;
+            String forma = (String) jComboBoxFormaPizza.getSelectedItem();
+
+            sabor1 = (Sabor) jComboBoxSabor1.getSelectedItem();
+            sabor2 = (Sabor) jComboBoxSabor2.getSelectedItem();
+            if(jTextFieldArea.getText().isBlank()){
+                area = 0;
+            }else{
+                area = Double.parseDouble(jTextFieldArea.getText());
+            }
+            if(jTextFieldLargura.getText().isBlank()){
+                base = 0;
+            }else{
+                base = Double.parseDouble(jTextFieldLargura.getText());
+            }
+            if(jTextFieldAltura.getText().isBlank()){
+                altura = 0;
+            }else{
+                altura = Double.parseDouble(jTextFieldAltura.getText());
+            }
+            
+        List<Double> retorno = pdController.insertPizzaPedido(base, altura, area, forma, sabor1, sabor2, p, 2,idPizza);
+
+            if(jTextFieldArea.getText().isBlank()){
+                jTextFieldArea.setText(retorno.get(0).toString());
+            }else{
+                if(forma.equals("Círculo")){
+                    jTextFieldLargura.setText(retorno.get(0).toString());
+                }else{
+                    jTextFieldLargura.setText(retorno.get(0).toString());
+                    jTextFieldAltura.setText(retorno.get(1).toString());
+                }
+            }
+            this.atualizaJTablePizzas();
+         }
+    }//GEN-LAST:event_jButtonAlterarPizzaActionPerformed
     
     private void atualizaJTableCliente(){
         tabelaCliente.setClientes(cController.findAllCliente());
@@ -902,7 +1002,9 @@ public class Aplicacao extends javax.swing.JFrame {
     
     private void atualizaJTablePizzas(){
         tabelaPizzas.setPizzas(pdController.findPizzaPedido(p.getIdPedido()));
+        jTextFieldTotalPedido.setText(Double.toString(p.getTotalPedido()));
         tabelaPizzas.fireTableDataChanged();
+        
     }
     /**
      * @param args the command line arguments
@@ -943,6 +1045,7 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAdicionar;
     private javax.swing.JButton jButtonAlterar;
+    private javax.swing.JButton jButtonAlterarPizza;
     private javax.swing.JButton jButtonAlterarSabor;
     private javax.swing.JButton jButtonAlterarStatusPedido;
     private javax.swing.JButton jButtonBuscaNome;

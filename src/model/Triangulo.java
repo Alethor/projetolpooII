@@ -44,6 +44,7 @@ public class Triangulo extends Forma{
     }
     
     public void calculaBaseAlturaTriangulo(double area){
+        this.setArea(area);
         this.setBase(Math.sqrt(2*area));
         this.setH(Math.sqrt(2*area));
         this.setTipo("Triângulo");

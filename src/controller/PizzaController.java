@@ -34,4 +34,10 @@ public class PizzaController {
          return sabores;
          
     }
+    
+    public void excluirPizzaPedido(int idPizza){
+        PizzaDao pDao = new PizzaDao();
+        
+        pDao.deletePizzaPedido(idPizza);
+    }
 }
