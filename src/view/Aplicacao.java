@@ -916,24 +916,49 @@ public class Aplicacao extends javax.swing.JFrame {
             }else{
                 altura = Double.parseDouble(jTextFieldAltura.getText());
             }
+            
+            if(jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
+                JOptionPane.showMessageDialog(null, "Insira as dimensões desejadas da pizza!", "Erro", JOptionPane.ERROR_MESSAGE);
 
-
-            List<Double> retorno = pdController.insertPizzaPedido(base, altura, area, forma, sabor1, sabor2, p, 1,0);
-
-            if(jTextFieldArea.getText().isBlank()){
-                jTextFieldArea.setText(retorno.get(0).toString());
-            }else{
-                if(forma.equals("Círculo")){
-                    jTextFieldLargura.setText(retorno.get(0).toString());
+            }else if(jTextFieldArea.getText().isBlank() && !jTextFieldLargura.getText().isBlank()){
+                if(forma.equals("Quadrado") && (base < 10 || base > 40 || altura < 10 || altura > 40)){
+                    JOptionPane.showMessageDialog(null, "O as dimensões do quadrado devem ser um número entre 10 e 40", "Erro", JOptionPane.ERROR_MESSAGE);
+                }else if(forma.equals("Triângulo")&& (base < 20 || base > 60 || altura < 20 || altura > 60)){
+                    JOptionPane.showMessageDialog(null, "O as dimensões do triângulo devem ser um número entre 20 e 60", "Erro", JOptionPane.ERROR_MESSAGE);
+                }else if(forma.equals("Círculo") && (base < 7 || base > 23)){
+                    JOptionPane.showMessageDialog(null, "O raio do Círculo deve ser um número entre 7 e 23", "Erro", JOptionPane.ERROR_MESSAGE);
                 }else{
-                    jTextFieldLargura.setText(retorno.get(0).toString());
-                    jTextFieldAltura.setText(retorno.get(1).toString());
+                  this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 1, 0);
                 }
+            }else if(!jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
+                if(area < 100 || area > 1600){
+                   JOptionPane.showMessageDialog(null, "A área inserida deve ser um valor entre 100 e 1600!", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+                 this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 1, 0);
+            }else{
+               
+                 this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 1, 0);
+                    
             }
-            this.atualizaJTablePizzas();
         }
+        
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
+    private void cadastrarPizza(double base, double altura, double area, String forma, Sabor sabor1, Sabor sabor2, Pedido p, int op, int idPizza){
+        List<Double> retorno = pdController.insertPizzaPedido(base, altura, area, forma, sabor1, sabor2, p, op,idPizza);
+
+                    if(jTextFieldArea.getText().isBlank()){
+                        jTextFieldArea.setText(retorno.get(0).toString());
+                    }else{
+                        if(forma.equals("Círculo")){
+                            jTextFieldLargura.setText(retorno.get(0).toString());
+                        }else{
+                            jTextFieldLargura.setText(retorno.get(0).toString());
+                            jTextFieldAltura.setText(retorno.get(1).toString());
+                        }
+                    }
+                    this.atualizaJTablePizzas();
+    }
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         if(jTPizzas.getSelectedRow() != -1){
             
@@ -979,19 +1004,29 @@ public class Aplicacao extends javax.swing.JFrame {
                 altura = Double.parseDouble(jTextFieldAltura.getText());
             }
             
-        List<Double> retorno = pdController.insertPizzaPedido(base, altura, area, forma, sabor1, sabor2, p, 2,idPizza);
+        if(jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
+                JOptionPane.showMessageDialog(null, "Insira as dimensões desejadas da pizza!", "Erro", JOptionPane.ERROR_MESSAGE);
 
-            if(jTextFieldArea.getText().isBlank()){
-                jTextFieldArea.setText(retorno.get(0).toString());
-            }else{
-                if(forma.equals("Círculo")){
-                    jTextFieldLargura.setText(retorno.get(0).toString());
+            }else if(jTextFieldArea.getText().isBlank() && !jTextFieldLargura.getText().isBlank()){
+                if(forma.equals("Quadrado") && (base < 10 || base > 40 || altura < 10 || altura > 40)){
+                    JOptionPane.showMessageDialog(null, "O as dimensões do quadrado devem ser um número entre 10 e 40", "Erro", JOptionPane.ERROR_MESSAGE);
+                }else if(forma.equals("Triângulo")&& (base < 20 || base > 60 || altura < 20 || altura > 60)){
+                    JOptionPane.showMessageDialog(null, "O as dimensões do triângulo devem ser um número entre 20 e 60", "Erro", JOptionPane.ERROR_MESSAGE);
+                }else if(forma.equals("Círculo") && (base < 7 || base > 23)){
+                    JOptionPane.showMessageDialog(null, "O raio do Círculo deve ser um número entre 7 e 23", "Erro", JOptionPane.ERROR_MESSAGE);
                 }else{
-                    jTextFieldLargura.setText(retorno.get(0).toString());
-                    jTextFieldAltura.setText(retorno.get(1).toString());
+                  this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
                 }
+            }else if(!jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
+                if(area < 100 || area > 1600){
+                   JOptionPane.showMessageDialog(null, "A área inserida deve ser um valor entre 100 e 1600!", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+                 this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
+            }else{
+               
+                 this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
+                    
             }
-            this.atualizaJTablePizzas();
          }
     }//GEN-LAST:event_jButtonAlterarPizzaActionPerformed
     
