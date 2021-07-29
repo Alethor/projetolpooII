@@ -8,6 +8,7 @@ package view;
 import controller.ClienteController;
 import controller.PedidoController;
 import controller.PizzaController;
+import java.util.ArrayList;
 
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ import model.Pedido;
 import model.PedidosTableModel;
 import model.PizzasTableModel;
 import model.Sabor;
+import model.SaboresTableModel;
 import model.Status;
 
 /**
@@ -38,7 +40,8 @@ public class Aplicacao extends javax.swing.JFrame {
     PizzasTableModel tabelaPizzas = new PizzasTableModel();
     PedidosTableModel tabelaPedidos = new PedidosTableModel();
     CategoriasTableModel tabelaCategoria = new CategoriasTableModel();
-    
+    SaboresTableModel tabelaSabores = new SaboresTableModel();
+    List<Sabor> sabores = new ArrayList<Sabor>();
     Pedido p = new Pedido();
  
     
@@ -49,14 +52,17 @@ public class Aplicacao extends javax.swing.JFrame {
         jTPizzas.setModel(tabelaPizzas);
         jTPedidos.setModel(tabelaPedidos);
         jTCategorias.setModel(tabelaCategoria);
+        jTSabores.setModel(tabelaSabores);
         List<String> formas = pController.findFormas();
-        List<Sabor> sabores = pController.findSabores();
+        
         List<Categoria> categorias = pController.findAllCategorias();
         List<Status> status = pdController.findAllStatus();
         
         this.atualizaJTableCliente();
         this.atualizaJTablePedidos();
         this.atualizaJTableCategoria();
+        this.atualizaJTableSabores();
+        this.atualizaComboBoxSabores();
         
         for(Status s : status){
             jComboBoxStatus.addItem(s);
@@ -64,10 +70,9 @@ public class Aplicacao extends javax.swing.JFrame {
         for(String f : formas){
             jComboBoxFormaPizza.addItem(f);
         }
-        
-        for(Sabor s : sabores){
-            jComboBoxSabor1.addItem(s);
-            jComboBoxSabor2.addItem(s);
+       
+        for(Categoria ca : categorias){
+            jComboBoxCategoriaSabor.addItem(ca);
         }
        
         
@@ -155,8 +160,7 @@ public class Aplicacao extends javax.swing.JFrame {
         jButtonSalvarSabor = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButtonExcluirSabor = new javax.swing.JButton();
+        jTSabores = new javax.swing.JTable();
         jButtonAlterarSabor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -277,7 +281,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jButtonAlterar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(515, Short.MAX_VALUE))
+                .addContainerGap(551, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Clientes", jPanelCliente);
@@ -521,7 +525,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonAdicionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -534,7 +538,7 @@ public class Aplicacao extends javax.swing.JFrame {
                         .addComponent(jButtonRemover)
                         .addComponent(jButtonAlterarPizza)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Pedidos", jPanel2);
@@ -593,7 +597,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jButtonAlterarStatusPedido))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(473, Short.MAX_VALUE))
+                .addContainerGap(509, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Todos os Pedidos", jPanel1);
@@ -662,7 +666,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jButtonAlterarValor))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(714, Short.MAX_VALUE))
+                .addContainerGap(750, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Categorias", jPanel3);
@@ -674,8 +678,6 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jLabel12.setText("Categoria:");
 
-        jComboBoxCategoriaSabor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jButtonSalvarSabor.setText("Salvar");
         jButtonSalvarSabor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -683,7 +685,7 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTSabores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -694,54 +696,48 @@ public class Aplicacao extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
-
-        jButtonExcluirSabor.setText("Excluir");
+        jScrollPane3.setViewportView(jTSabores);
 
         jButtonAlterarSabor.setText("Alterar");
+        jButtonAlterarSabor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarSaborActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelSaboresLayout = new javax.swing.GroupLayout(jPanelSabores);
         jPanelSabores.setLayout(jPanelSaboresLayout);
         jPanelSaboresLayout.setHorizontalGroup(
             jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSaboresLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator4)
+            .addGroup(jPanelSaboresLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSaboresLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(63, 63, 63)
+                .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldNomeSabor)
+                    .addComponent(jComboBoxCategoriaSabor, 0, 485, Short.MAX_VALUE))
+                .addGap(64, 64, 64))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSaboresLayout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
                 .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonAlterarSabor)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelSaboresLayout.createSequentialGroup()
-                        .addComponent(jButtonAlterarSabor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonExcluirSabor)))
+                    .addComponent(jButtonSalvarSabor))
                 .addGap(60, 60, 60))
             .addGroup(jPanelSaboresLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonSalvarSabor)
-                    .addGroup(jPanelSaboresLayout.createSequentialGroup()
-                        .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelSaboresLayout.createSequentialGroup()
-                                .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(14, 14, 14))
-                            .addGroup(jPanelSaboresLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel12)))
-                        .addGap(76, 76, 76)
-                        .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldNomeSabor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxCategoriaSabor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(368, 368, 368))
+                .addComponent(jSeparator4)
+                .addContainerGap())
         );
         jPanelSaboresLayout.setVerticalGroup(
             jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelSaboresLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -750,17 +746,15 @@ public class Aplicacao extends javax.swing.JFrame {
                 .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jComboBoxCategoriaSabor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonSalvarSabor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanelSaboresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAlterarSabor)
-                    .addComponent(jButtonExcluirSabor))
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonAlterarSabor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(312, 312, 312))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(582, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Sabores", jPanelSabores);
@@ -877,7 +871,19 @@ public class Aplicacao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNovoValorActionPerformed
 
     private void jButtonSalvarSaborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarSaborActionPerformed
-        // TODO add your handling code here:
+        if(jTextFieldNomeSabor.getText().isBlank()){
+           JOptionPane.showMessageDialog(null, "Insira um nome válido para o novo sabor!", "Erro", JOptionPane.ERROR_MESSAGE);
+
+        }else{
+            Sabor s = new Sabor();
+            
+            s.setDescricao(jTextFieldNomeSabor.getText());
+            s.setCategoria((Categoria) jComboBoxCategoriaSabor.getSelectedItem());
+            
+            pController.insertSabor(s);
+            
+            this.atualizaJTableSabores();
+        }
     }//GEN-LAST:event_jButtonSalvarSaborActionPerformed
 
     private void jButtonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarClienteActionPerformed
@@ -1081,8 +1087,26 @@ public class Aplicacao extends javax.swing.JFrame {
             novoValor = Double.parseDouble(jTextFieldNovoValor.getText());
             pController.updateValorCategoria(id, novoValor);
             this.atualizaJTableCategoria();
+            this.atualizaComboBoxSabores();
         }
     }//GEN-LAST:event_jButtonAlterarValorActionPerformed
+
+    private void jButtonAlterarSaborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarSaborActionPerformed
+        int id = 0;
+        if(jTSabores.getSelectedRow() != -1){
+            id = (int) jTSabores.getValueAt(jTSabores.getSelectedRow(), 0);
+       }
+        
+        Categoria c = new Categoria();
+        
+        c = (Categoria) jComboBoxCategoriaSabor.getSelectedItem();
+        
+        pController.updateSabor(id, c);
+        
+        this.atualizaJTableSabores();
+        
+        
+    }//GEN-LAST:event_jButtonAlterarSaborActionPerformed
     
     private void atualizaJTableCliente(){
         tabelaCliente.setClientes(cController.findAllCliente());
@@ -1105,6 +1129,23 @@ public class Aplicacao extends javax.swing.JFrame {
     private void atualizaJTableCategoria(){
         tabelaCategoria.setCategorias(pController.findAllCategorias());
         tabelaCategoria.fireTableDataChanged();
+    }
+    
+    private void atualizaJTableSabores(){
+       tabelaSabores.setSabores(pController.findSabores());
+       tabelaSabores.fireTableDataChanged();
+       this.atualizaComboBoxSabores();
+    }
+    
+    private void atualizaComboBoxSabores(){
+        this.sabores = pController.findSabores();
+         jComboBoxSabor1.removeAllItems();
+         jComboBoxSabor2.removeAllItems();
+         for(Sabor s : sabores){
+            jComboBoxSabor1.addItem(s);
+            jComboBoxSabor2.addItem(s);
+        }
+        
     }
     /**
      * @param args the command line arguments
@@ -1152,11 +1193,10 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBuscarCliente;
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonExcluir;
-    private javax.swing.JButton jButtonExcluirSabor;
     private javax.swing.JButton jButtonLimpaFiltro;
     private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonSalvarSabor;
-    private javax.swing.JComboBox<String> jComboBoxCategoriaSabor;
+    private javax.swing.JComboBox<Object> jComboBoxCategoriaSabor;
     private javax.swing.JComboBox<String> jComboBoxFormaPizza;
     private javax.swing.JComboBox<Object> jComboBoxSabor1;
     private javax.swing.JComboBox<Object> jComboBoxSabor2;
@@ -1203,8 +1243,8 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JTable jTClientes;
     private javax.swing.JTable jTPedidos;
     private javax.swing.JTable jTPizzas;
+    private javax.swing.JTable jTSabores;
     private javax.swing.JTabbedPane jTabbedPaneAplicacao;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextFieldAltura;
     private javax.swing.JTextField jTextFieldArea;
     private javax.swing.JTextField jTextFieldBusca;

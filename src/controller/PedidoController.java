@@ -83,8 +83,8 @@ public class PedidoController {
         List<Double> retorno = new ArrayList<>();
        
         
-        sabor1.setValor(pzDao.findValorSabor(sabor1.getIdCategoria()));
-        sabor2.setValor(pzDao.findValorSabor(sabor2.getIdCategoria()));
+        sabor1.setValor(pzDao.findValorSabor(sabor1.getCategoria().getId()));
+        sabor2.setValor(pzDao.findValorSabor(sabor2.getCategoria().getId()));
         
         pz.setSabor1(sabor1);
         pz.setSabor2(sabor2);

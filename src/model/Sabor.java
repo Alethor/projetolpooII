@@ -12,7 +12,8 @@ package model;
 public class Sabor {
     private int id;
     private String descricao;
-    private int idCategoria;
+    private Categoria categoria;
+    
     private double valor;
 
     public int getId() {
@@ -31,12 +32,12 @@ public class Sabor {
         this.descricao = descricao;
     }
 
-    public int getIdCategoria() {
-        return idCategoria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public double getValor() {
@@ -50,6 +51,6 @@ public class Sabor {
     
     @Override
     public String toString(){
-        return this.getDescricao();
+        return this.getDescricao() + " - " + this.getCategoria().getDescricao();
     }
 }

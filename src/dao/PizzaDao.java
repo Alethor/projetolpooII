@@ -57,9 +57,11 @@ public class PizzaDao {
             
             while(rs.next()){
                 Sabor sabor = new Sabor();
+                Categoria c = new Categoria();
                 sabor.setId(rs.getInt("ID"));
                 sabor.setDescricao(rs.getString("DESCRICAO"));
-                sabor.setIdCategoria(rs.getInt("IDCATEGORIA"));
+                c.setId(rs.getInt("IDCATEGORIA"));
+                sabor.setCategoria(c);
                 
                 sabores.add(sabor);
             }
@@ -174,9 +176,11 @@ public class PizzaDao {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                Categoria c = new Categoria();
                 s.setId(rs.getInt("ID"));
                 s.setDescricao(rs.getString("DESCRICAO"));
-                s.setIdCategoria(rs.getInt("IDCATEGORIA"));
+                c.setId(rs.getInt("IDCATEGORIA"));
+                s.setCategoria(c);
                
             }
         }catch(SQLException e){
@@ -252,4 +256,56 @@ public class PizzaDao {
          }
         
     }
+    
+    public void insertSabor(Sabor sabor){
+        String sql = "INSERT INTO col_sabores(IDCATEGORIA,DESCRICAO) VALUES (?, ?)";
+        
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setInt(1, sabor.getCategoria().getId());
+            ps.setString(2, sabor.getDescricao());
+            ps.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+    }
+    public Categoria findCategoriaSabor(int idCategoria){
+        String sql = "SELECT * FROM col_categoria WHERE ID = ?";
+        Categoria c = new Categoria();
+        
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setInt(1, idCategoria);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                c.setDescricao(rs.getString("DESCRICAO"));
+                c.setId(rs.getInt("ID"));
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return c;
+    }
+    
+   public void updateSabor(Sabor s){
+       String sql = "UPDATE col_sabores SET IDCATEGORIA = ? WHERE ID = ?";
+       
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setInt(1, s.getCategoria().getId());
+            ps.setInt(2, s.getId());
+            ps.executeUpdate();
+         }catch(SQLException e){
+             e.printStackTrace();
+         }
+       
+   }
+    
 }

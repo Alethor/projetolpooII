@@ -32,6 +32,12 @@ public class PizzaController {
          List<Sabor> sabores = new ArrayList<Sabor>();
          
          sabores = pDao.findSabores();
+         for(Sabor s : sabores){
+             s.setCategoria(pDao.findCategoriaSabor(s.getCategoria().getId()));
+             System.out.println(s.getDescricao() + " - " + s.getCategoria().getId());
+            
+         }
+          System.out.println("------------------------------------");
          return sabores;
          
     }
@@ -46,8 +52,7 @@ public class PizzaController {
        List<Categoria> categorias = new ArrayList<Categoria>();
        PizzaDao pDao = new PizzaDao();
        categorias = pDao.findAllCategoria();
-       
-       
+
        return categorias;
        
     }
@@ -57,5 +62,21 @@ public class PizzaController {
         pDao.updateValorCategoria(idCategoria, valor);
     }
     
+    public void insertSabor(Sabor s){
+        PizzaDao pDao = new PizzaDao();
+        pDao.insertSabor(s);
+    }
+    
+   public void updateSabor(int idSabor, Categoria c){
+       PizzaDao pDao = new PizzaDao();
+       Sabor sa = new Sabor();
+       
+       sa = pDao.findSaborPizza(idSabor);
+       sa.setCategoria(c);
+       
+       pDao.updateSabor(sa);
+      
+   }
+   
     
 }
