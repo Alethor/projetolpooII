@@ -128,7 +128,7 @@ public class Aplicacao extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabelRaio = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelAltura = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jButtonAlterarPizza = new javax.swing.JButton();
@@ -379,11 +379,11 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jLabel17.setText("Sobrenome:");
 
-        jLabelRaio.setText("Largura:");
+        jLabelRaio.setText("Largura (cm):");
 
-        jLabel3.setText("Altura:");
+        jLabelAltura.setText("Altura (cm):");
 
-        jLabel4.setText("Área: ");
+        jLabel4.setText("Área (cm²): ");
 
         jButtonAlterarPizza.setText("Alterar");
         jButtonAlterarPizza.addActionListener(new java.awt.event.ActionListener() {
@@ -433,7 +433,7 @@ public class Aplicacao extends javax.swing.JFrame {
                                         .addGap(98, 98, 98)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabelRaio)
-                                            .addComponent(jLabel3)
+                                            .addComponent(jLabelAltura)
                                             .addComponent(jLabel4))
                                         .addGap(53, 53, 53)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -512,7 +512,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jComboBoxSabor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jTextFieldAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabelAltura))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxSabor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -907,12 +907,17 @@ public class Aplicacao extends javax.swing.JFrame {
 
     private void jComboBoxFormaPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFormaPizzaActionPerformed
         if(jComboBoxFormaPizza.getSelectedItem().equals("Círculo")){
-            jLabelRaio.setText("Raio: ");
+            jLabelRaio.setText("Raio (cm): ");
             jTextFieldAltura.setText("");
             jTextFieldAltura.setEnabled(false);
+        }else if(jComboBoxFormaPizza.getSelectedItem().equals("Quadrado")){
+            jLabelRaio.setText("Lado (cm): ");
+            jLabelAltura.setText("Lado (cm)");
+            jTextFieldAltura.setEnabled(true);
         }else{
-            jLabelRaio.setText("Largura: ");
-             jTextFieldAltura.setEnabled(true);
+            jLabelRaio.setText("Base (cm): ");
+            jLabelAltura.setText("Altura (cm)");
+            jTextFieldAltura.setEnabled(true);
         }
     }//GEN-LAST:event_jComboBoxFormaPizzaActionPerformed
 
@@ -962,8 +967,9 @@ public class Aplicacao extends javax.swing.JFrame {
             }else if(!jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
                 if(area < 100 || area > 1600){
                    JOptionPane.showMessageDialog(null, "A área inserida deve ser um valor entre 100 e 1600!", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
+                }else{
                  this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 1, 0);
+                }
             }else{
                
                  this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 1, 0);
@@ -1051,8 +1057,9 @@ public class Aplicacao extends javax.swing.JFrame {
             }else if(!jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
                 if(area < 100 || area > 1600){
                    JOptionPane.showMessageDialog(null, "A área inserida deve ser um valor entre 100 e 1600!", "Erro", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
                 }
-                 this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
             }else{
                
                  this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
@@ -1167,13 +1174,13 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelAltura;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelRaio;
     private javax.swing.JLabel jLabelSobrenome;

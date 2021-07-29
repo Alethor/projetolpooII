@@ -274,7 +274,7 @@
                                               <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabelRaio" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabelAltura" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
@@ -383,7 +383,7 @@
                           <Component id="jComboBoxSabor1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldAltura" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelAltura" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -609,17 +609,17 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelRaio">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Largura:"/>
+                <Property name="text" type="java.lang.String" value="Largura (cm):"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="jLabelAltura">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Altura:"/>
+                <Property name="text" type="java.lang.String" value="Altura (cm):"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#xc1;rea: "/>
+                <Property name="text" type="java.lang.String" value="&#xc1;rea (cm&#xb2;): "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator2">
