@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.ClienteDao;
 import dao.PedidoDao;
 import dao.PizzaDao;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import model.Pedido;
 import model.Pizza;
 import model.Quadrado;
 import model.Sabor;
+import model.Status;
 import model.Triangulo;
 
 /**
@@ -27,10 +29,11 @@ public class PedidoController {
     public void insertPedido(Cliente cliente){
         Pedido p = new Pedido();
         PedidoDao pDao = new PedidoDao();
-        
+        Status s = new Status();
+        s.setIdStatus(1);
         p.setCliente(cliente);
         p.setTotalPedido(0);
-        p.setIdStatus(1);
+        p.setStatus(s);
         Boolean retorno = pDao.insertPedido(p);
     }
     
@@ -146,6 +149,34 @@ public class PedidoController {
        
         this.atualizaTotalPedido(p);
         return retorno;
+    }
+    
+    public List<Pedido> findAllPedidos(){
+        List<Pedido> pedidos = new ArrayList<Pedido>();
+        PedidoDao pDao = new PedidoDao();
+        ClienteDao cDao = new ClienteDao();
+        pedidos = pDao.findAllPedido();
+        
+        for(Pedido p : pedidos){
+            p.setStatus(pDao.findStatusPedido(p.getStatus().getIdStatus()));
+            p.setCliente(cDao.findClienteById(p.getCliente().getId()));
+        }
+        return pedidos;
+        
+    }
+    
+    public List<Status> findAllStatus(){
+        List<Status> status = new ArrayList<Status>();
+        PedidoDao pDao = new PedidoDao();
+        status = pDao.findAllStatus();
+        return status;
+        
+    }
+    
+    public void updateStatusPedido(int idPedido, Status s){
+        PedidoDao pDao = new PedidoDao();
+        pDao.updateStatus(idPedido, s);
+        
     }
 }
 

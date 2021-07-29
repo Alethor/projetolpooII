@@ -138,4 +138,26 @@ public class ClienteDao {
         }
          return c;
     }
+    
+    public Cliente findClienteById(int idCliente){
+        Cliente c = new Cliente();
+        String sql = "SELECT * FROM col_cliente WHERE ID = ?";
+        
+         try{
+          Connection conn = DB.getConnection();
+          PreparedStatement ps = conn.prepareStatement(sql);
+          ps.setInt(1, idCliente);
+          ResultSet rs = ps.executeQuery();
+          
+          while(rs.next()){
+              c.setId(rs.getInt("ID"));
+              c.setNome(rs.getString("NOME"));
+              c.setSobrenome(rs.getString("SOBRENOME"));
+              c.setTelefone(rs.getLong("TELEFONE"));
+          }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+         return c;
+    }
 }

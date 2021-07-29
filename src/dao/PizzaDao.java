@@ -12,6 +12,7 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import model.Categoria;
 import model.Forma;
 import model.Pizza;
 import model.Sabor;
@@ -207,6 +208,44 @@ public class PizzaDao {
             Connection conn = DB.getConnection();
             PreparedStatement ps =  conn.prepareStatement(sql);
             ps.setInt(1, idPizza);
+            ps.executeUpdate();
+         }catch(SQLException e){
+             e.printStackTrace();
+         }
+        
+    }
+    
+    public List<Categoria> findAllCategoria(){
+        String sql = "SELECT * FROM col_categoria";
+        List<Categoria> categorias = new ArrayList<Categoria>();
+        
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Categoria ca = new Categoria();
+                ca.setId(rs.getInt("ID"));
+                ca.setDescricao(rs.getString("DESCRICAO"));
+                ca.setPreco(rs.getDouble("PRECO"));
+                
+                categorias.add(ca);
+            }
+         }catch(SQLException e){
+             e.printStackTrace();
+         }
+        return categorias;
+    }
+    
+    public void updateValorCategoria(int idCategoria, double valor){
+        String sql = "UPDATE col_categoria SET PRECO = ? WHERE ID = ?";
+         
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setDouble(1, valor);
+            ps.setInt(2, idCategoria);
             ps.executeUpdate();
          }catch(SQLException e){
              e.printStackTrace();

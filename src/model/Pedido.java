@@ -14,7 +14,7 @@ import java.util.List;
 public class Pedido {
     private int idPedido;
     private Cliente cliente;
-    private int idStatus;
+    private Status status;
     private List<Pizza> pizzas;
     private double totalPedido;
 
@@ -34,15 +34,14 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    
-
-    public int getIdStatus() {
-        return idStatus;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setIdStatus(int idStatus) {
-        this.idStatus = idStatus;
+    public void setStatus(Status status) {
+        this.status = status;
     }
+
 
     public List<Pizza> getPizzas() {
         return pizzas;

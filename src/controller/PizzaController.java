@@ -8,6 +8,7 @@ package controller;
 import dao.PizzaDao;
 import java.util.ArrayList;
 import java.util.List;
+import model.Categoria;
 import model.Sabor;
 
 /**
@@ -40,4 +41,21 @@ public class PizzaController {
         
         pDao.deletePizzaPedido(idPizza);
     }
+    
+    public List<Categoria> findAllCategorias(){
+       List<Categoria> categorias = new ArrayList<Categoria>();
+       PizzaDao pDao = new PizzaDao();
+       categorias = pDao.findAllCategoria();
+       
+       
+       return categorias;
+       
+    }
+    
+    public void updateValorCategoria(int idCategoria, double valor){
+        PizzaDao pDao = new PizzaDao();
+        pDao.updateValorCategoria(idCategoria, valor);
+    }
+    
+    
 }

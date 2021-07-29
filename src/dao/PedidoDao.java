@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import model.Cliente;
+import model.Status;
 
 /**
  *
@@ -28,7 +29,7 @@ public class PedidoDao {
             Connection conn = DB.getConnection();
             PreparedStatement ps =  conn.prepareStatement(sql);
             ps.setInt(1, p.getCliente().getId());
-            ps.setInt(2, p.getIdStatus());
+            ps.setInt(2, p.getStatus().getIdStatus());
             ps.setDouble(3, p.getTotalPedido());
             ps.executeUpdate();
             
@@ -51,9 +52,11 @@ public class PedidoDao {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
+                Status s = new Status();
                 p.setIdPedido(rs.getInt("ID"));
-                p.setIdStatus(rs.getInt("IDSTATUS"));
+                s.setIdStatus(rs.getInt("IDSTATUS"));
                 p.setTotalPedido(rs.getDouble("TOTAL"));
+                p.setStatus(s);
             }
            p.setCliente(c);
         }catch(SQLException e){
@@ -90,5 +93,95 @@ public class PedidoDao {
              e.printStackTrace();
          }
         
+    }
+    
+    public List<Pedido> findAllPedido(){
+        String sql = "SELECT * FROM col_pedido";
+        List<Pedido> pedidos = new ArrayList<Pedido>();
+        
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Status s = new Status();
+                Pedido p = new Pedido();
+                Cliente c = new Cliente();
+                p.setIdPedido(rs.getInt("ID"));
+                s.setIdStatus(rs.getInt("IDSTATUS"));
+                c.setId(rs.getInt("IDCLIENTE"));
+                p.setTotalPedido(rs.getDouble("TOTAL"));
+                p.setCliente(c);
+                p.setStatus(s);
+                pedidos.add(p);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return pedidos;
+    }
+    
+    public Status findStatusPedido(int idStatus){
+        String sql = "SELECT * FROM col_status WHERE ID = ?";
+        Status s = new Status();
+        
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setInt(1, idStatus);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                s.setIdStatus(rs.getInt("ID"));
+                s.setDescricao(rs.getString("DESCRICAO"));
+                    
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        
+    }
+        return s;
+}
+    
+    public List<Status> findAllStatus(){
+        String sql = "SELECT * FROM col_status";
+        List<Status> status = new ArrayList<Status>();
+        
+        try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Status s = new Status();
+                
+                s.setIdStatus(rs.getInt("ID"));
+                s.setDescricao(rs.getString("DESCRICAO"));
+                
+                status.add(s);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return status;
+           
+    }
+    
+    public void updateStatus(int idPedido, Status s){
+        String sql = "UPDATE col_pedido SET IDSTATUS = ? WHERE ID = ?";
+        
+         try{
+            Connection conn = DB.getConnection();
+            PreparedStatement ps =  conn.prepareStatement(sql);
+            ps.setInt(1, s.getIdStatus());
+            ps.setInt(2, idPedido);
+            ps.executeUpdate();
+            
+          
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 }

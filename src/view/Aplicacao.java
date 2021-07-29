@@ -11,11 +11,15 @@ import controller.PizzaController;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Categoria;
+import model.CategoriasTableModel;
 import model.Cliente;
 import model.ClienteTableModel;
 import model.Pedido;
+import model.PedidosTableModel;
 import model.PizzasTableModel;
 import model.Sabor;
+import model.Status;
 
 /**
  *
@@ -32,6 +36,9 @@ public class Aplicacao extends javax.swing.JFrame {
     
     ClienteTableModel tabelaCliente = new ClienteTableModel();
     PizzasTableModel tabelaPizzas = new PizzasTableModel();
+    PedidosTableModel tabelaPedidos = new PedidosTableModel();
+    CategoriasTableModel tabelaCategoria = new CategoriasTableModel();
+    
     Pedido p = new Pedido();
  
     
@@ -40,11 +47,20 @@ public class Aplicacao extends javax.swing.JFrame {
         initComponents();
         jTClientes.setModel(tabelaCliente);
         jTPizzas.setModel(tabelaPizzas);
-        this.atualizaJTableCliente();
+        jTPedidos.setModel(tabelaPedidos);
+        jTCategorias.setModel(tabelaCategoria);
         List<String> formas = pController.findFormas();
         List<Sabor> sabores = pController.findSabores();
+        List<Categoria> categorias = pController.findAllCategorias();
+        List<Status> status = pdController.findAllStatus();
         
+        this.atualizaJTableCliente();
+        this.atualizaJTablePedidos();
+        this.atualizaJTableCategoria();
         
+        for(Status s : status){
+            jComboBoxStatus.addItem(s);
+        }
         for(String f : formas){
             jComboBoxFormaPizza.addItem(f);
         }
@@ -119,17 +135,17 @@ public class Aplicacao extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jComboBoxStatusPedido = new javax.swing.JComboBox<>();
+        jComboBoxStatus = new javax.swing.JComboBox<>();
         jButtonAlterarStatusPedido = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jTPedidos = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jTextFieldNovoValor = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonAlterarValor = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        jTCategorias = new javax.swing.JTable();
         jPanelSabores = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -528,8 +544,6 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jLabel19.setText("Status: ");
 
-        jComboBoxStatusPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jButtonAlterarStatusPedido.setText("Alterar Status");
         jButtonAlterarStatusPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -537,7 +551,7 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jTPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -548,7 +562,7 @@ public class Aplicacao extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(jTable3);
+        jScrollPane4.setViewportView(jTPedidos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -560,7 +574,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxStatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonAlterarStatusPedido))
                     .addComponent(jLabel18)
@@ -575,7 +589,7 @@ public class Aplicacao extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(jComboBoxStatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAlterarStatusPedido))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -595,9 +609,14 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Alterar Valor");
+        jButtonAlterarValor.setText("Alterar Valor");
+        jButtonAlterarValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarValorActionPerformed(evt);
+            }
+        });
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        jTCategorias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -608,7 +627,7 @@ public class Aplicacao extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane5.setViewportView(jTable4);
+        jScrollPane5.setViewportView(jTCategorias);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -625,7 +644,7 @@ public class Aplicacao extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldNovoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))))
+                                .addComponent(jButtonAlterarValor))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel20)))
@@ -640,10 +659,10 @@ public class Aplicacao extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(jTextFieldNovoValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonAlterarValor))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(677, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(714, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Categorias", jPanel3);
@@ -787,7 +806,7 @@ public class Aplicacao extends javax.swing.JFrame {
             cController.deleteCliente(id);
             this.p = new Pedido();
             this.atualizaJTableCliente();
-          
+            this.atualizaJTablePedidos();
         }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
@@ -840,7 +859,17 @@ public class Aplicacao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldBuscaTelefoneActionPerformed
 
     private void jButtonAlterarStatusPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarStatusPedidoActionPerformed
-        // TODO add your handling code here:
+        int id = 0;
+        Status s = new Status();
+        
+        if(jTPedidos.getSelectedRow() != -1){
+            id = (int) jTPedidos.getValueAt(jTPedidos.getSelectedRow(), 0);
+        }
+        
+        s = (Status) jComboBoxStatus.getSelectedItem();
+        
+        pdController.updateStatusPedido(id, s);
+        this.atualizaJTablePedidos();
     }//GEN-LAST:event_jButtonAlterarStatusPedidoActionPerformed
 
     private void jTextFieldNovoValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNovoValorActionPerformed
@@ -958,6 +987,7 @@ public class Aplicacao extends javax.swing.JFrame {
                         }
                     }
                     this.atualizaJTablePizzas();
+                    this.atualizaJTablePedidos();
     }
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         if(jTPizzas.getSelectedRow() != -1){
@@ -966,6 +996,7 @@ public class Aplicacao extends javax.swing.JFrame {
             pController.excluirPizzaPedido(id);
             pdController.atualizaTotalPedido(p);
             this.atualizaJTablePizzas();
+            this.atualizaJTablePedidos();
           
         }
     }//GEN-LAST:event_jButtonRemoverActionPerformed
@@ -1016,7 +1047,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "O raio do Círculo deve ser um número entre 7 e 23", "Erro", JOptionPane.ERROR_MESSAGE);
                 }else{
                   this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
-                }
+                }   
             }else if(!jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
                 if(area < 100 || area > 1600){
                    JOptionPane.showMessageDialog(null, "A área inserida deve ser um valor entre 100 e 1600!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1029,6 +1060,22 @@ public class Aplicacao extends javax.swing.JFrame {
             }
          }
     }//GEN-LAST:event_jButtonAlterarPizzaActionPerformed
+
+    private void jButtonAlterarValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarValorActionPerformed
+        if(jTextFieldNovoValor.getText().isBlank()){
+            JOptionPane.showMessageDialog(null, "Insira um valor válido para realizar a alteração!", "Erro", JOptionPane.ERROR_MESSAGE);
+
+        }else{
+            int id = 0;
+            if(jTCategorias.getSelectedRow() != -1){
+                id = (int) jTCategorias.getValueAt(jTCategorias.getSelectedRow(), 0);
+            }
+            Double novoValor;
+            novoValor = Double.parseDouble(jTextFieldNovoValor.getText());
+            pController.updateValorCategoria(id, novoValor);
+            this.atualizaJTableCategoria();
+        }
+    }//GEN-LAST:event_jButtonAlterarValorActionPerformed
     
     private void atualizaJTableCliente(){
         tabelaCliente.setClientes(cController.findAllCliente());
@@ -1040,6 +1087,17 @@ public class Aplicacao extends javax.swing.JFrame {
         jTextFieldTotalPedido.setText(Double.toString(p.getTotalPedido()));
         tabelaPizzas.fireTableDataChanged();
         
+    }
+    
+    private void atualizaJTablePedidos(){
+        List<Pedido> pedidos = pdController.findAllPedidos();
+        tabelaPedidos.setPedidos(pedidos);
+        tabelaPedidos.fireTableDataChanged();
+    }
+    
+    private void atualizaJTableCategoria(){
+        tabelaCategoria.setCategorias(pController.findAllCategorias());
+        tabelaCategoria.fireTableDataChanged();
     }
     /**
      * @param args the command line arguments
@@ -1077,12 +1135,12 @@ public class Aplicacao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAdicionar;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonAlterarPizza;
     private javax.swing.JButton jButtonAlterarSabor;
     private javax.swing.JButton jButtonAlterarStatusPedido;
+    private javax.swing.JButton jButtonAlterarValor;
     private javax.swing.JButton jButtonBuscaNome;
     private javax.swing.JButton jButtonBuscarCliente;
     private javax.swing.JButton jButtonCadastrar;
@@ -1095,7 +1153,7 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxFormaPizza;
     private javax.swing.JComboBox<Object> jComboBoxSabor1;
     private javax.swing.JComboBox<Object> jComboBoxSabor2;
-    private javax.swing.JComboBox<String> jComboBoxStatusPedido;
+    private javax.swing.JComboBox<Object> jComboBoxStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1134,12 +1192,12 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTable jTCategorias;
     private javax.swing.JTable jTClientes;
+    private javax.swing.JTable jTPedidos;
     private javax.swing.JTable jTPizzas;
     private javax.swing.JTabbedPane jTabbedPaneAplicacao;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextFieldAltura;
     private javax.swing.JTextField jTextFieldArea;
     private javax.swing.JTextField jTextFieldBusca;
