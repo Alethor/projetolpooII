@@ -118,7 +118,6 @@ public class Aplicacao extends javax.swing.JFrame {
         jComboBoxSabor2 = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jTextFieldLargura = new javax.swing.JTextField();
-        jTextFieldAltura = new javax.swing.JTextField();
         jTextFieldArea = new javax.swing.JTextField();
         jButtonAdicionar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
@@ -133,7 +132,6 @@ public class Aplicacao extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabelRaio = new javax.swing.JLabel();
-        jLabelAltura = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButtonAlterarPizza = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JSeparator();
@@ -385,8 +383,6 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jLabelRaio.setText("Largura (cm):");
 
-        jLabelAltura.setText("Altura (cm):");
-
         jLabel4.setText("Área (cm²): ");
 
         jButtonAlterarPizza.setText("Alterar");
@@ -451,12 +447,10 @@ public class Aplicacao extends javax.swing.JFrame {
                                 .addGap(58, 58, 58)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelRaio)
-                                    .addComponent(jLabelAltura)
                                     .addComponent(jLabel4))
                                 .addGap(53, 53, 53)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextFieldLargura, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldAltura, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jTextFieldArea, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9))))
@@ -507,7 +501,7 @@ public class Aplicacao extends javax.swing.JFrame {
                             .addGap(18, 18, 18)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxFormaPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))
@@ -515,17 +509,15 @@ public class Aplicacao extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxSabor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextFieldAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelAltura))
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxSabor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextFieldArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(33, 33, 33)
+                    .addComponent(jLabel8))
+                .addGap(32, 32, 32)
                 .addComponent(jButtonAdicionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addComponent(jLabel13)
@@ -536,7 +528,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jButtonRemover)
                     .addComponent(jButtonAlterarPizza))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
 
         jTabbedPaneAplicacao.addTab("Pedidos", jPanel2);
@@ -814,6 +806,7 @@ public class Aplicacao extends javax.swing.JFrame {
                cController.alterarCliente(id, jTextFieldNome.getText(), jTextFieldSobrenome.getText(), Long.parseLong(jTextFieldTelefone.getText()));
            }
            this.atualizaJTableCliente();
+           this.atualizaJTablePedidos();
             
         }
     }//GEN-LAST:event_jButtonAlterarActionPerformed
@@ -912,17 +905,12 @@ public class Aplicacao extends javax.swing.JFrame {
     private void jComboBoxFormaPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFormaPizzaActionPerformed
         if(jComboBoxFormaPizza.getSelectedItem().equals("Círculo")){
             jLabelRaio.setText("Raio (cm): ");
-            jTextFieldAltura.setText("");
-            jTextFieldAltura.setEnabled(false);
-        }else if(jComboBoxFormaPizza.getSelectedItem().equals("Quadrado")){
-            jLabelRaio.setText("Lado (cm): ");
-            jLabelAltura.setText("Lado (cm)");
-            jTextFieldAltura.setEnabled(true);
+     
         }else{
-            jLabelRaio.setText("Base (cm): ");
-            jLabelAltura.setText("Altura (cm)");
-            jTextFieldAltura.setEnabled(true);
+            jLabelRaio.setText("Lado (cm): ");
         }
+           
+       
     }//GEN-LAST:event_jComboBoxFormaPizzaActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
@@ -949,52 +937,45 @@ public class Aplicacao extends javax.swing.JFrame {
             }else{
                 base = Double.parseDouble(jTextFieldLargura.getText());
             }
-            if(jTextFieldAltura.getText().isBlank()){
-                altura = 0;
-            }else{
-                altura = Double.parseDouble(jTextFieldAltura.getText());
-            }
+           
             
             if(jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
                 JOptionPane.showMessageDialog(null, "Insira as dimensões desejadas da pizza!", "Erro", JOptionPane.ERROR_MESSAGE);
 
             }else if(jTextFieldArea.getText().isBlank() && !jTextFieldLargura.getText().isBlank()){
-                if(forma.equals("Quadrado") && (base < 10 || base > 40 || altura < 10 || altura > 40)){
+                if(forma.equals("Quadrado") && (base < 10 || base > 40 )){
                     JOptionPane.showMessageDialog(null, "O as dimensões do quadrado devem ser um número entre 10 e 40", "Erro", JOptionPane.ERROR_MESSAGE);
-                }else if(forma.equals("Triângulo")&& (base < 20 || base > 60 || altura < 20 || altura > 60)){
+                }else if(forma.equals("Triângulo")&& (base < 20 || base > 60 )){
                     JOptionPane.showMessageDialog(null, "O as dimensões do triângulo devem ser um número entre 20 e 60", "Erro", JOptionPane.ERROR_MESSAGE);
                 }else if(forma.equals("Círculo") && (base < 7 || base > 23)){
                     JOptionPane.showMessageDialog(null, "O raio do Círculo deve ser um número entre 7 e 23", "Erro", JOptionPane.ERROR_MESSAGE);
                 }else{
-                  this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 1, 0);
+                  this.cadastrarPizza(base, area, forma, sabor1, sabor2, p, 1, 0);
                 }
             }else if(!jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
                 if(area < 100 || area > 1600){
                    JOptionPane.showMessageDialog(null, "A área inserida deve ser um valor entre 100 e 1600!", "Erro", JOptionPane.ERROR_MESSAGE);
                 }else{
-                 this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 1, 0);
+                 this.cadastrarPizza(base,area, forma, sabor1, sabor2, p, 1, 0);
                 }
             }else{
                
-                 this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 1, 0);
+                 this.cadastrarPizza(base, area, forma, sabor1, sabor2, p, 1, 0);
                     
             }
         }
         
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
-    private void cadastrarPizza(double base, double altura, double area, String forma, Sabor sabor1, Sabor sabor2, Pedido p, int op, int idPizza){
-        List<Double> retorno = pdController.insertPizzaPedido(base, altura, area, forma, sabor1, sabor2, p, op,idPizza);
+    private void cadastrarPizza(double base, double area, String forma, Sabor sabor1, Sabor sabor2, Pedido p, int op, int idPizza){
+        Double retorno = pdController.insertPizzaPedido(base, area, forma, sabor1, sabor2, p, op,idPizza);
 
                     if(jTextFieldArea.getText().isBlank()){
-                        jTextFieldArea.setText(retorno.get(0).toString());
+                        jTextFieldArea.setText(retorno.toString());
                     }else{
-                        if(forma.equals("Círculo")){
-                            jTextFieldLargura.setText(retorno.get(0).toString());
-                        }else{
-                            jTextFieldLargura.setText(retorno.get(0).toString());
-                            jTextFieldAltura.setText(retorno.get(1).toString());
-                        }
+                        
+                            jTextFieldLargura.setText(retorno.toString());
+                        
                     }
                     this.atualizaJTablePizzas();
                     this.atualizaJTablePedidos();
@@ -1039,34 +1020,30 @@ public class Aplicacao extends javax.swing.JFrame {
             }else{
                 base = Double.parseDouble(jTextFieldLargura.getText());
             }
-            if(jTextFieldAltura.getText().isBlank()){
-                altura = 0;
-            }else{
-                altura = Double.parseDouble(jTextFieldAltura.getText());
-            }
+           
             
         if(jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
                 JOptionPane.showMessageDialog(null, "Insira as dimensões desejadas da pizza!", "Erro", JOptionPane.ERROR_MESSAGE);
 
             }else if(jTextFieldArea.getText().isBlank() && !jTextFieldLargura.getText().isBlank()){
-                if(forma.equals("Quadrado") && (base < 10 || base > 40 || altura < 10 || altura > 40)){
+                if(forma.equals("Quadrado") && (base < 10 || base > 40 )){
                     JOptionPane.showMessageDialog(null, "O as dimensões do quadrado devem ser um número entre 10 e 40", "Erro", JOptionPane.ERROR_MESSAGE);
-                }else if(forma.equals("Triângulo")&& (base < 20 || base > 60 || altura < 20 || altura > 60)){
+                }else if(forma.equals("Triângulo")&& (base < 20 || base > 60)){
                     JOptionPane.showMessageDialog(null, "O as dimensões do triângulo devem ser um número entre 20 e 60", "Erro", JOptionPane.ERROR_MESSAGE);
                 }else if(forma.equals("Círculo") && (base < 7 || base > 23)){
                     JOptionPane.showMessageDialog(null, "O raio do Círculo deve ser um número entre 7 e 23", "Erro", JOptionPane.ERROR_MESSAGE);
                 }else{
-                  this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
+                  this.cadastrarPizza(base, area, forma, sabor1, sabor2, p, 2, idPizza);
                 }   
             }else if(!jTextFieldArea.getText().isBlank() && jTextFieldLargura.getText().isBlank()){
                 if(area < 100 || area > 1600){
                    JOptionPane.showMessageDialog(null, "A área inserida deve ser um valor entre 100 e 1600!", "Erro", JOptionPane.ERROR_MESSAGE);
                 }else{
-                    this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
+                    this.cadastrarPizza(base, area, forma, sabor1, sabor2, p, 2, idPizza);
                 }
             }else{
                
-                 this.cadastrarPizza(base, altura, area, forma, sabor1, sabor2, p, 2, idPizza);
+                 this.cadastrarPizza(base, area, forma, sabor1, sabor2, p, 2, idPizza);
                     
             }
          }
@@ -1218,7 +1195,6 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelAltura;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelRaio;
     private javax.swing.JLabel jLabelSobrenome;
@@ -1243,7 +1219,6 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JTable jTPizzas;
     private javax.swing.JTable jTSabores;
     private javax.swing.JTabbedPane jTabbedPaneAplicacao;
-    private javax.swing.JTextField jTextFieldAltura;
     private javax.swing.JTextField jTextFieldArea;
     private javax.swing.JTextField jTextFieldBusca;
     private javax.swing.JTextField jTextFieldBuscaTelefone;

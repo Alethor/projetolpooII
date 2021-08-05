@@ -9,48 +9,42 @@ package model;
  *
  * @author Alethor
  */
-public class Quadrado extends Forma{
+public class Quadrado implements Forma{
     
-     private double base;
-     private double h;
+     private double lado;
+     private double area;
    
     
 
     public Quadrado() {
     }
 
-
-    public double getBase() {
-        return base;
+    public double getLado() {
+        return lado;
     }
 
-    public void setBase(double base) {
-        this.base = base;
+    public void setLado(double lado) {
+        this.lado = lado;
     }
 
-    public double getH() {
-        return h;
+    public double getArea() {
+        return area;
     }
 
-    public void setH(double h) {
-        this.h = h;
+    public void setArea(double area) {
+        this.area = area;
     }
-   
-    
-    
-    public void calculaAreaRetangulo(double base, double h){
-        this.setBase(base);
-        this.setH(h);
-        this.setArea(base * h);
-        this.setTipo("Quadrado");
-    
+
+
+    @Override
+    public Double calculaArea() {
+        this.setArea(this.getLado() * this.getLado());
+        return this.getArea();
     }
-    
-    public void calculaBaseAltura(double area){
-        this.setArea(area);
-        this.setBase(Math.sqrt(area));
-        this.setH(Math.sqrt(area));
-        this.setTipo("Quadrado");
-       
+
+    @Override
+    public Double calculaLadoOuRaio() {
+        this.setLado(Math.sqrt(this.getArea()));
+        return this.getLado();
     }
 }

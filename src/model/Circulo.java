@@ -9,9 +9,10 @@ package model;
  *
  * @author Alethor
  */
-public class Circulo extends Forma{
+public class Circulo implements Forma{
     
     private Double r;
+    private Double area;
     
     public Circulo(){}
 
@@ -22,17 +23,24 @@ public class Circulo extends Forma{
     public void setR(Double r) {
         this.r = r;
     }
-    
-    
-    public void calculaAreaCirculo(double r){
-        this.setR(r);
-        this.setArea((3.14 * (Math.pow(r, 2))));
-        this.setTipo("Círculo");
+
+    public Double getArea() {
+        return area;
     }
-    
-    public void calculaRaioCirculo(double area){
-         this.setArea(area);
-         this.setR(Math.sqrt(area/3.14));
-         this.setTipo("Círculo");
+
+    public void setArea(Double area) {
+        this.area = area;
+    }
+  
+    @Override
+    public Double calculaArea() {
+        this.setArea((3.14 * (Math.pow(this.getR(), 2))));
+        return this.getArea();
+    }
+
+    @Override
+    public Double calculaLadoOuRaio() {
+        this.setR(Math.sqrt(this.getArea()/3.14));
+        return this.getR();
     }
 }

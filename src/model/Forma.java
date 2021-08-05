@@ -2,27 +2,12 @@
 package model;
 
 
-public class Forma {
+public interface Forma {
     
-    protected double area;
-    protected String tipo;
+   
+public Double calculaArea();
 
-    public double getArea() {
-        return area;
-    }
-
-    public void setArea(double area) {
-        this.area = area;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-    
+public Double calculaLadoOuRaio();
     
     
     

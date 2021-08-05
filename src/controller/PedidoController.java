@@ -77,10 +77,10 @@ public class PedidoController {
         
     }
     
-    public List<Double> insertPizzaPedido(double x, double y, double area, String forma, Sabor sabor1, Sabor sabor2, Pedido p, int operacao, int idPizza){
+    public Double insertPizzaPedido(double x, double area, String forma, Sabor sabor1, Sabor sabor2, Pedido p, int operacao, int idPizza){
         Pizza pz = new Pizza();
         PizzaDao pzDao = new PizzaDao();
-        List<Double> retorno = new ArrayList<>();
+        Double retorno = 0.0;
        
         
         sabor1.setValor(pzDao.findValorSabor(sabor1.getCategoria().getId()));
@@ -92,50 +92,49 @@ public class PedidoController {
         switch(forma){
             case "Círculo":
                 Circulo c = new Circulo();
-                c.setTipo("Círculo");
+                pz.setNomeForma("Círculo");
                 if(area == 0){
-                   c.calculaAreaCirculo(x);
-                   pz.setForma(c);
-                   retorno.add(c.getArea());
+                   c.setR(x);
+                   pz.setArea(c.calculaArea());
+                   retorno = pz.getArea();
                 }else{
-                   c.calculaRaioCirculo(area);
-                   pz.setForma(c);
-                   retorno.add(c.getR());
+                   c.setArea(area);
+                   pz.setArea(area);
+                   c.calculaLadoOuRaio();
+                  retorno = c.getR();
                 }
                 break;
             case "Triângulo":
                 Triangulo t = new Triangulo();
-                t.setTipo("Triângulo");
+                pz.setNomeForma("Triângulo");
                 if(area == 0){
-                    t.calculaAreaTriangulo(x, y);
-                    pz.setForma(t);
-                    retorno.add(t.getArea());
+                    t.setLado(x);
+                    pz.setArea(t.calculaArea());
+                    retorno = t.getArea();
                 }else{
-                    t.calculaBaseAlturaTriangulo(area);
-                    pz.setForma(t);
-                    retorno.add(t.getBase());
-                    retorno.add(t.getH());
+                    t.setArea(area);
+                    pz.setArea(area);
+                    t.calculaLadoOuRaio();
+                    retorno = t.getLado();
                 }
                 break;
             case "Quadrado":
                 Quadrado q = new Quadrado();
-                q.setTipo("Quadrado");
+                pz.setNomeForma("Quadrado");
                 if(area == 0){
-                    q.calculaAreaRetangulo(x, y);
-                    pz.setForma(q);
-                   
-                    retorno.add(q.getArea());
-                   
+                    q.setLado(x);
+                    pz.setArea(q.calculaArea());
+                    retorno = q.getArea();          
                 }else{
-                    q.calculaBaseAltura(area);
-                    pz.setForma(q);
-                    retorno.add(q.getBase());
-                    retorno.add(q.getH());
-                    
+                    q.setArea(area);
+                    pz.setArea(area);
+                    q.calculaLadoOuRaio();
+                    retorno = q.getLado();
+
                 }
             break;
         }
-        pz.setValor(pz.getForma().getArea() * ((sabor1.getValor() + sabor2.getValor())/2));
+        pz.setValor(pz.getArea() * ((sabor1.getValor() + sabor2.getValor())/2));
         
         switch(operacao){
             case 1:

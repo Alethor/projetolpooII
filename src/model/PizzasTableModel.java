@@ -42,9 +42,9 @@ public class PizzasTableModel extends AbstractTableModel {
             case 2:
                 return pizzas.get(linha).getSabor2().getDescricao();
             case 3:
-                return pizzas.get(linha).getForma().getTipo();
+                return pizzas.get(linha).getNomeForma();
             case 4:
-                return pizzas.get(linha).getForma().getArea();
+                return pizzas.get(linha).getArea();
             case 5:
                 return pizzas.get(linha).getValor();
             default:

@@ -9,44 +9,40 @@ package model;
  *
  * @author Alethor
  */
-public class Triangulo extends Forma{
+public class Triangulo implements Forma{
     
-    private double base;
-    private double h;
+    private Double lado;
+    private Double area;
+    
     
     public Triangulo() {
     }
-    
-    public double getBase() {
-        return base;
+
+    public Double getLado() {
+        return lado;
     }
 
-    public void setBase(double base) {
-        this.base = base;
+    public void setLado(Double lado) {
+        this.lado = lado;
     }
 
-    public double getH() {
-        return h;
+    public Double getArea() {
+        return area;
     }
 
-    public void setH(double h) {
-        this.h = h;
+    public void setArea(Double area) {
+        this.area = area;
     }
-   
-    
-    
-    public void calculaAreaTriangulo(double base, double h){
-       this.setBase(base);
-       this.setH(h);
-       this.setArea((base * h)/2);
-       this.setTipo("Triângulo");
-    
+
+    @Override
+    public Double calculaArea() {
+        this.setArea((this.getLado() * this.getLado())/2);
+        return this.getArea();
     }
-    
-    public void calculaBaseAlturaTriangulo(double area){
-        this.setArea(area);
-        this.setBase(Math.sqrt(2*area));
-        this.setH(Math.sqrt(2*area));
-        this.setTipo("Triângulo");
+
+    @Override
+    public Double calculaLadoOuRaio() {
+        this.setLado(Math.sqrt(2*this.getArea()));
+        return this.getLado();    
     }
 }

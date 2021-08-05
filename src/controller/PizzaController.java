@@ -28,16 +28,15 @@ public class PizzaController {
     }
     
     public List<Sabor> findSabores(){
-         PizzaDao pDao = new PizzaDao();
+        PizzaDao pDao = new PizzaDao();
          List<Sabor> sabores = new ArrayList<Sabor>();
          
          sabores = pDao.findSabores();
          for(Sabor s : sabores){
              s.setCategoria(pDao.findCategoriaSabor(s.getCategoria().getId()));
-             System.out.println(s.getDescricao() + " - " + s.getCategoria().getId());
-            
+             
          }
-          System.out.println("------------------------------------");
+         
          return sabores;
          
     }

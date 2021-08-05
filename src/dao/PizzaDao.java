@@ -95,6 +95,7 @@ public class PizzaDao {
         return valor;
                 
     }
+    
     public void insertPizzaPedido(int idPedido, Pizza p){
         String sql = "INSERT INTO col_pizza_pedido(IDPEDIDO, AREA, VALOR, FORMA, SABOR1, SABOR2) VALUES (?,?,?,?,?,?)";
         
@@ -102,9 +103,9 @@ public class PizzaDao {
             Connection conn = DB.getConnection();
             PreparedStatement ps =  conn.prepareStatement(sql);
             ps.setInt(1, idPedido);
-            ps.setDouble(2, p.getForma().getArea());
+            ps.setDouble(2, p.getValor());
             ps.setDouble(3, p.getValor());
-            ps.setString(4, p.getForma().getTipo());
+            ps.setString(4, p.getNomeForma());
             ps.setInt(5, p.getSabor1().getId());
             ps.setInt(6, p.getSabor2().getId());
             ps.executeUpdate();
@@ -119,9 +120,9 @@ public class PizzaDao {
         try{
             Connection conn = DB.getConnection();
             PreparedStatement ps =  conn.prepareStatement(sql);
-            ps.setDouble(1, p.getForma().getArea());
+            ps.setDouble(1, p.getArea());
             ps.setDouble(2, p.getValor());
-            ps.setString(3, p.getForma().getTipo());
+            ps.setString(3, p.getNomeForma());
             ps.setInt(4, p.getSabor1().getId());
             ps.setInt(5, p.getSabor2().getId());
             ps.setInt(6, p.getId());
@@ -130,6 +131,7 @@ public class PizzaDao {
             e.printStackTrace();
         }
     }
+    
     public List<Pizza> findPizzasPedido(int idPedido){
         List<Pizza> pizzas = new ArrayList<Pizza>();
         
@@ -144,16 +146,14 @@ public class PizzaDao {
             
             while(rs.next()){
                 Pizza p = new Pizza();
-                Forma f = new Forma();
                 Sabor s1 = new Sabor();
                 Sabor s2 = new Sabor();
                 p.setId(rs.getInt("ID"));
-                f.setTipo(rs.getString("FORMA"));
-                f.setArea(rs.getDouble("AREA"));
+                p.setNomeForma(rs.getString("FORMA"));
+                p.setArea(rs.getDouble("AREA"));
                 p.setValor(rs.getDouble("VALOR"));
                 s1.setId(rs.getInt("SABOR1"));
                 s2.setId(rs.getInt("SABOR2"));
-                p.setForma(f);
                 p.setSabor1(s1);
                 p.setSabor2(s2);
                 pizzas.add(p);
@@ -271,6 +271,7 @@ public class PizzaDao {
         }
         
     }
+    
     public Categoria findCategoriaSabor(int idCategoria){
         String sql = "SELECT * FROM col_categoria WHERE ID = ?";
         Categoria c = new Categoria();

@@ -8,9 +8,10 @@ package model;
 
 public class Pizza {
     private int id;
-    private Forma forma;
     private Sabor sabor1;
     private Sabor sabor2;
+    private Double area;
+    private String nomeForma;
     private double valor;
     
     public Pizza(){
@@ -22,15 +23,6 @@ public class Pizza {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    
-    public Forma getForma() {
-        return forma;
-    }
-
-    public void setForma(Forma forma) {
-        this.forma = forma;
     }
 
     public Sabor getSabor1() {
@@ -57,6 +49,23 @@ public class Pizza {
     public void setValor(double valor) {
         this.valor = valor;
     }
+
+    public Double getArea() {
+        return area;
+    }
+
+    public void setArea(Double area) {
+        this.area = area;
+    }
+
+    public String getNomeForma() {
+        return nomeForma;
+    }
+
+    public void setNomeForma(String nomeForma) {
+        this.nomeForma = nomeForma;
+    }
+    
     
     
   
